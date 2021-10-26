@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SampleApi.Repositories;
+using Pecunia.Repositories;
 
-namespace SampleApi
+namespace Pecunia
 {
     public class Startup
     {

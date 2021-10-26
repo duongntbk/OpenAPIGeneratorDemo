@@ -1,10 +1,10 @@
-﻿using SampleApi.Models;
+﻿using Pecunia.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SampleApi.Repositories
+namespace Pecunia.Repositories
 {
     public class Repository<T> : IRepository<T>
         where T : class, ICloneable<T>, IFindable
@@ -33,7 +33,6 @@ namespace SampleApi.Repositories
                 {
                     Uuid = new Guid("28c1b820-526f-4973-9f7b-4aa636eca22d"),
                     Name = "Tim Doe",
-                    Dob = new DateTime(1954, 5, 7)
                 },
                 new Person
                 {
@@ -48,35 +47,35 @@ namespace SampleApi.Repositories
                 new Account
                 {
                     Uuid = new Guid("f1e6a450-04be-423d-9c73-516e196e0257"),
-                    OnwerUuid = new Guid("dbf2a133-b342-4e22-8ef2-aab0ec249b08"),
+                    OwnerUuid = new Guid("dbf2a133-b342-4e22-8ef2-aab0ec249b08"),
                     Value = 1_000_000_000,
                     IsFrozen = false
                 },
                 new Account
                 {
                     Uuid = new Guid("80b3bc37-8d7e-42ff-803a-73fecf08f51e"),
-                    OnwerUuid = new Guid("dbf2a133-b342-4e22-8ef2-aab0ec249b08"),
+                    OwnerUuid = new Guid("dbf2a133-b342-4e22-8ef2-aab0ec249b08"),
                     Value = 2_000_000_000,
                     IsFrozen = false
                 },
                 new Account
                 {
                     Uuid = new Guid("4335b7fa-e287-4166-a06b-b4cc95f5534a"),
-                    OnwerUuid = new Guid("e4b5e71e-74e6-4195-aab1-b61ff6ef42b3"),
+                    OwnerUuid = new Guid("e4b5e71e-74e6-4195-aab1-b61ff6ef42b3"),
                     Value = 500_000_000,
                     IsFrozen = false
                 },
                 new Account
                 {
                     Uuid = new Guid("f43a2cb2-3709-4f6a-b726-5c3bffa6a99f"),
-                    OnwerUuid = new Guid("28c1b820-526f-4973-9f7b-4aa636eca22d"),
+                    OwnerUuid = new Guid("28c1b820-526f-4973-9f7b-4aa636eca22d"),
                     Value = 400_000_000,
                     IsFrozen = true
                 },
                 new Account
                 {
                     Uuid = new Guid("c9b43814-6f33-4ef8-b368-811f4f75d575"),
-                    OnwerUuid = new Guid("bccc5c8e-1248-4134-a07a-ed7c3b5ff9c1"),
+                    OwnerUuid = new Guid("bccc5c8e-1248-4134-a07a-ed7c3b5ff9c1"),
                     Value = 1_400_000_000,
                     IsFrozen = true
                 }

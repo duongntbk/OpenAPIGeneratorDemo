@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SampleApi.Models
+namespace Pecunia.Models
 {
     public interface IFindable
     {

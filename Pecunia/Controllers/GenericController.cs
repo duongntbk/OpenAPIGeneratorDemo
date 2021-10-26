@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SampleApi.Models;
-using SampleApi.Repositories;
+using Pecunia.Models;
+using Pecunia.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SampleApi.Controllers
+namespace Pecunia.Controllers
 {
     public abstract class GenericController<T> : ControllerBase
         where T: class, ICloneable<T>, IFindable
@@ -17,10 +16,19 @@ namespace SampleApi.Controllers
 
         [HttpGet]
         [Route("show")]
-        public async Task<T> ShowAsync(Guid uuid) => await _repository.FindByUuid(uuid);
+        public async Task<IActionResult> ShowAsync([FromQuery] Guid uuid)
+        {
+            var record = await _repository.FindByUuid(uuid);
+            if (record is object)
+            {
+                return Ok(record);
+            }
+
+            return NotFound($"Cannot find {typeof(T).Name} with Uuid: {uuid}");
+        }
 
         [HttpGet]
         [Route("index")]
-        public async Task<List<T>> IndexAsync() => await _repository.FindAll();
+        public async Task<IActionResult> IndexAsync() => Ok(await _repository.FindAll());
     }
 }

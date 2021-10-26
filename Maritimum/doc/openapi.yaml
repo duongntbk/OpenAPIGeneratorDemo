@@ -1,0 +1,215 @@
+openapi: 3.0.2
+info:
+  description: a sample API to return ships and ports information.
+  version: v1
+  title: Maritimum
+  contact:
+    name: Nguyen Thai Duong
+    url: https://duongnt.com/about
+paths:
+  '/port/show':
+    post:
+      tags:
+        - port
+      summary: Get a port by its UUID
+      operationId: ports.show
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Port'
+        '400':
+          description: Bad request.
+        '404':
+          description: Cannot find a port with this UUID.
+      requestBody:
+        description: UUID of the port.
+        required: true
+        content:
+          application/json:
+            schema:
+              format: uuid
+              type: string
+  '/port/report':
+    post:
+      tags:
+        - port
+      summary: Get a list of ports using their country and deep water flag
+      operationId: ports.report
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Port'
+        '400':
+          description: Bad request.
+      requestBody:
+        description: Used to filter the reported existing ports.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortReportRequest'
+  '/port/index':
+    get:
+      tags:
+        - port
+      summary: Get all ports in DB
+      operationId: ports.index
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Port'
+        '400':
+          description: Bad request.
+  '/ship/show':
+    post:
+      tags:
+        - ship
+      summary: Get a ship by its UUID
+      operationId: ships.show
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ship'
+        '400':
+          description: Bad request.
+        '404':
+          description: Cannot find a ship with this UUID.
+      requestBody:
+        description: UUID of the ship.
+        required: true
+        content:
+          application/json:
+            schema:
+              format: uuid
+              type: string
+  '/ship/report':
+    post:
+      tags:
+        - ship
+      summary: Get a list of ships using their port UUID and tonnage range
+      operationId: ships.report
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ship'
+        '400':
+          description: Bad request.
+      requestBody:
+        description: Used to filter the reported existing ships.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipReportRequest'
+  '/ship/index':
+    get:
+      tags:
+        - ship
+      summary: Get all ships in DB
+      operationId: ships.index
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ship'
+        '400':
+          description: Bad request.
+components:
+  schemas:
+    Port:
+      type: object
+      properties:
+        uuid:
+          format: uuid
+          type: string
+          description: UUID of the port.
+        name:
+          type: string
+          description: Name of the port.
+        country:
+          type: string
+          description: Port's country.
+        is_deep_water:
+          type: boolean
+          description: Whether this is a deep water port.
+          nullable: true
+    Ship:
+      type: object
+      properties:
+        uuid:
+          format: uuid
+          type: string
+          description: UUID of the ship.
+        name:
+          type: string
+          description: Name of the ship.
+        home_port_uuid:
+          format: uuid
+          type: string
+          description: UUID of home port.
+        tonnage:
+          type: integer
+          description: Age of the person.
+          nullable: true
+    PortReportRequest:
+      type: object
+      description: |-
+        Home country and deep water flag used to filter
+        the reported existing port.
+      required:
+        - country
+      properties:
+        country:
+          type: string
+          description: Port's country.
+        is_deep_water:
+          type: boolean
+          description: Whether this port is a deep water port.
+          nullable: true
+    ShipReportRequest:
+      type: object
+      description: |-
+        UUID of the homeport, minimal tonnage and maximum tonnage used to filter
+        the reported existing ships.
+      required:
+        - home_port_uuid
+      properties:
+        home_port_uuid:
+          format: uuid
+          type: string
+          description: UUID of home port.
+        max_tonnage:
+          type: integer
+          description: Maximum tonnage.
+          minimum: 1
+          nullable: true
+        min_tonnage:
+          type: integer
+          description: Mminimum tonnage.
+          minimum: 1
+          nullable: true

@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
-namespace SampleApi.Models
+namespace Pecunia.Models
 {
     public class Person : ICloneable<Person>, IFindable
     {
+        [JsonPropertyName("uuid")]
         public Guid Uuid { get; set; }
 
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("age")]
         public int? Age => CalculateAge();
 
+        [JsonPropertyName("dob")]
         public DateTime? Dob { get; set; }
 
         public Person Clone() => new Person

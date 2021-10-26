@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SampleApi.Models;
-using SampleApi.Repositories;
+using Pecunia.Models;
+using Pecunia.Repositories;
 
-namespace SampleApi.Controllers
+namespace Pecunia.Controllers
 {
     [ApiController]
     [Route("[controller]")]

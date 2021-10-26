@@ -1,9 +1,9 @@
-﻿using SampleApi.Models;
+﻿using Pecunia.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SampleApi.Repositories
+namespace Pecunia.Repositories
 {
     public interface IRepository<T> where T : class, ICloneable<T>, IFindable
     {

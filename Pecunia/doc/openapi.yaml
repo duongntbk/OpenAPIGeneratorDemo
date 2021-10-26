@@ -1,0 +1,130 @@
+openapi: 3.0.2
+info:
+  description: a sample API to return users and accounts information.
+  version: v1
+  title: Pecunia
+  contact:
+    name: Nguyen Thai Duong
+    url: https://duongnt.com/about
+paths:
+  '/person/show':
+    get:
+      tags:
+        - person
+      summary: Get a person using their UUID
+      operationId: people.show
+      parameters:
+        - name: uuid
+          in: query
+          description: UUID to search for one person
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Bad request
+        '404':
+          description: Cannot find anyone with this UUID
+  '/person/index':
+    get:
+      tags:
+        - person
+      summary: Get all people in DB
+      operationId: people.index
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        '400':
+          description: Bad request
+  '/account/show':
+    get:
+      tags:
+        - account
+      summary: Get an account using its UUID
+      operationId: accounts.show
+      parameters:
+        - name: uuid
+          in: query
+          description: UUID to search for one account
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Bad request
+        '404':
+          description: Cannot find anyone with this UUID
+  '/account/index':
+    get:
+      tags:
+        - account
+      summary: Get all accounts in DB
+      operationId: accounts.index
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '400':
+          description: Bad request
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        uuid:
+          format: uuid
+          type: string
+          description: UUID of the person
+        name:
+          type: string
+          description: name of the person
+        age:
+          type: integer
+          description: age of the person
+          nullable: true
+        dob:
+          format: date-time
+          type: string
+          description: date of birth of the person
+          nullable: true
+    Account:
+      type: object
+      properties:
+        uuid:
+          format: uuid
+          type: string
+          description: UUID of the account
+        owner_uuid:
+          format: uuid
+          type: string
+          description: UUID of account owner
+        value:
+          format: int64
+          type: number
+          description: balance of the account
+        is_frozen:
+          type: boolean
+          description: flag to indicate if the account is frozen
